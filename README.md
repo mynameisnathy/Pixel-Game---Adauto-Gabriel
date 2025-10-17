@@ -1,2 +1,2 @@
-# Pixel-Game---Adauto-Gabriel
+# Pixel-Game-Adauto-Gabriel
 Trabalho da feira de sábado
