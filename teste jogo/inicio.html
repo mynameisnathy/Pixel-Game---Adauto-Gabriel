@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jump Game</title>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <style>
+
+    @font-face {
+        font-family: 'Minecraft';
+        src: url(/minecraft/Minecraft.ttf) format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('/Untitled\ Project.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Minecraft';
+      color: rgb(194, 237, 255);
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 150px;
+    }
+
+    h1 {
+      font-size: 55px;
+      text-shadow: 5px 3px #1f2025bd;
+    }
+
+    h2 {
+      font-size: 25px;
+      text-shadow: 3px 2px #1f2025bd;
+    }
+
+    .titulo {
+     display: inline-block;
+      animation: flutuar 2s ease-in-out infinite;
+    }
+
+    .start-button {
+      margin-top: 10px;
+      padding: 15px 40px;
+      font-size: 25px;
+      background-color: #a6d0ff;
+      font-family: 'Minecraft';
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 3px 3px #587cc4;
+      animation: flutuar 2s ease-in-out infinite;
+    }
+
+    
+    @keyframes flutuar {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+    }
+
+    .start-button:hover {
+      background-color: #17396e;
+      box-shadow: 3px 3px #09204f;
+      color: white;
+    }
+
+  .selecao {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+  justify-content: center;
+}
+
+.selecao button {
+  padding: 5px 2px;
+  height: auto;
+  width: auto;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+    background-color: #a6d0ff;
+    box-shadow: 2px 2px #587cc4;
+    font-family: 'Minecraft';
+
+}
+
+.cloud{
+    width: 500px;
+    position: absolute;
+    animation: cloud 20s infinite linear;
+}
+
+@keyframes cloud {
+    from{
+        right: -0px;
+    }
+
+    to{
+        right: 550px;
+    }
+}
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    .music-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 999;
+  background:#587cc4;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.music-toggle.active{
+  background: #09204f;
+  color: #e7f0ff;
+}
+
+  </style>
+</head> 
+<body>
+
+  <div class="container">
+<img src="/clouds.png" class="cloud">
+    <h1 class="titulo">De volta pra casa</h1>
+    <header>
+  <button class="start-button" onclick="window.location.href='escolha.html'">Iniciar</button>
+</header>
+  </div>
+
+  <footer>
+    © 2025 Terceirão ADS - Todos os direitos reservados.
+  </footer>
+
+  <audio id="bgAudio" src="/alonelytree.mp3.mpeg" loop preload="auto"></audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Música">🔈</button>
+
+
+  <script>
+    function startGame() {
+      alert("O jogo vai começar!");
+      // Aqui você pode redirecionar para a tela do jogo
+      // window.location.href = "jogo.html";
+    }
+
+       const bgAudio = document.getElementById('bgAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    if (bgAudio) bgAudio.volume = 0.35;
+
+    // restaura preferência (default: desligado)
+    let musicOn = localStorage.getItem('musicOn') === 'true';
+    function updateMusicUI(){
+      if(!musicToggle) return;
+      if(musicOn){
+        musicToggle.classList.add('active');
+        musicToggle.textContent = '🔊';
+      } else {
+        musicToggle.classList.remove('active');
+        musicToggle.textContent = '🔈';
+      }
+    }
+
+ updateMusicUI();
+
+    // tenta tocar após a primeira interação do usuário (evita bloqueio)
+    function tryPlayOnce(){
+      if (musicOn && bgAudio) bgAudio.play().catch(()=>{});
+    }
+    document.addEventListener('click', tryPlayOnce, {once:true});
+    document.addEventListener('keydown', tryPlayOnce, {once:true});
+    document.addEventListener('touchstart', tryPlayOnce, {once:true});
+
+    if (musicToggle) {
+      musicToggle.addEventListener('click', () => {
+        musicOn = !musicOn;
+        localStorage.setItem('musicOn', musicOn);
+        updateMusicUI();
+        if (musicOn && bgAudio) {
+          bgAudio.play().catch(()=>{});
+        } else if (bgAudio) {
+          bgAudio.pause();
+          bgAudio.currentTime = 0;
+        }
+      });
+    }
+
+  </script>
+</body>
+</html>
