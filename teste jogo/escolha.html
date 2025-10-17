@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Personagem</title>
+</head>
+<body>
+    <style>
+    @font-face {
+        font-family: 'Minecraft';
+        src: url(/minecraft/Minecraft.ttf) format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('/Untitled\ Project.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Minecraft';
+      color: rgb(194, 237, 255);
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 0px;
+    }
+
+        h1 {
+      font-size: 50px;
+      text-shadow: 3px 2px #1f2025bd;
+    }
+
+    .titulo {
+     display: inline-block;
+      animation: flutuar 2s ease-in-out infinite;
+    }
+
+    .start-button {
+      margin-top: 10px;
+      padding: 15px 40px;
+      font-size: 25px;
+      background-color: #a6d0ff;
+      font-family: 'Minecraft';
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 3px 3px #587cc4;
+      animation: flutuar 2s ease-in-out infinite;
+    }
+
+        .start-button:hover {
+      background-color: #153972;
+      box-shadow: 3px 3px #09204f;
+      color: white;
+    }
+
+    .cloud{
+    width: 500px;
+    position: absolute;
+    animation: cloud 20s infinite linear;
+}
+  
+    @keyframes cloud {
+    from{
+        right: -0px;
+    }
+
+    to{
+        right: 550px;
+    }
+}
+    
+    @keyframes flutuar {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+    }
+
+.selecao button.selected {
+    outline: 3px solid #020557;
+    transform: translateY(-6px);
+    font-family: 'Minecraft';
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #17396e;
+    box-shadow: 3px 3px #09204f;
+    color: white;
+    padding: 10px 15px;
+    font-size: 17px;
+    margin: 5px;
+    animation: flutuar 3s ease-in-out infinite;
+    }
+
+.selecao button {
+    animation: flutuar 3s ease-in-out infinite;
+    outline: 3px solid #69abf2;
+    transform: translateY(-6px);
+    font-family: 'Minecraft';
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #a6d0ff;
+    box-shadow: 3px 3px #587cc4;
+    padding: 10px 15px;
+    font-size: 17px;
+    color: #000000;
+    margin: 5px;
+}
+
+    .preview {
+     animation: flutuar 3s ease-in-out infinite;
+      margin-top: 15px;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      display: none;
+      border-radius: 8px;
+      background: rgba(120, 157, 220, 0.301);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    header {
+      text-align: left;
+    }
+
+.voltar {
+    margin-top: 15px;
+    margin-left: 15px;
+    padding: 10px 15px;
+    font-size: 20px;
+    background-color: #a6d0ff;
+    font-family: 'Minecraft';
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px #587cc4;
+}
+
+.voltar:hover {
+    background-color: #17396e;
+    box-shadow: 3px 3px #09204f;
+    color: white;
+}
+
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    @keyframes flutuar {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+    }
+
+    .music-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 999;
+  background:#587cc4;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.music-toggle.active{
+  background: #09204f;
+  color: #e7f0ff;
+}
+
+
+  </style>
+
+ <header>
+  <button class="voltar" onclick="window.location.href='inicio.html'">Voltar</button>
+</header>
+   <div class="container">
+    <img src="/clouds.png" class="cloud">
+      <h1 class="titulo">Selecione o <br> Personagem</h1>
+      <div class="selecao">
+        <button id="btn-adauto" onclick="trocarPersonagem('adauto.png', this)">Adauto</button>
+        <button id="btn-gabriel" onclick="trocarPersonagem('gabriel.png', this)">Gabriel</button>
+
+      <img id="preview" class="preview" src="">
+      <br>
+      <button class="start-button" onclick="window.location.href='fases.html'">Iniciar</button>
+    </div>
+    </div>
+
+     <audio id="bgAudio" src="/alonelytree.mp3.mpeg" loop preload="auto"></audio>
+  <button id="musicToggle" class="music-toggle" aria-label="Música">🔈</button>
+
+
+
+  <footer>
+    © 2025 Terceirão ADS - Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function startGame() {
+      alert("O jogo vai começar!");
+    }
+
+       const bgAudio = document.getElementById('bgAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    if (bgAudio) bgAudio.volume = 0.35;
+
+    // restaura preferência (default: desligado)
+    let musicOn = localStorage.getItem('musicOn') === 'true';
+    function updateMusicUI(){
+      if(!musicToggle) return;
+      if(musicOn){
+        musicToggle.classList.add('active');
+        musicToggle.textContent = '🔊';
+      } else {
+        musicToggle.classList.remove('active');
+        musicToggle.textContent = '🔈';
+      }
+    }
+
+ updateMusicUI();
+
+    // tenta tocar após a primeira interação do usuário (evita bloqueio)
+    function tryPlayOnce(){
+      if (musicOn && bgAudio) bgAudio.play().catch(()=>{});
+    }
+    document.addEventListener('click', tryPlayOnce, {once:true});
+    document.addEventListener('keydown', tryPlayOnce, {once:true});
+    document.addEventListener('touchstart', tryPlayOnce, {once:true});
+
+    if (musicToggle) {
+      musicToggle.addEventListener('click', () => {
+        musicOn = !musicOn;
+        localStorage.setItem('musicOn', musicOn);
+        updateMusicUI();
+        if (musicOn && bgAudio) {
+          bgAudio.play().catch(()=>{});
+        } else if (bgAudio) {
+          bgAudio.pause();
+          bgAudio.currentTime = 0;
+        }
+      });
+    }
+
+    const preview = document.getElementById('preview');
+  const btnAdauto = document.getElementById('btn-adauto');
+  const btnGabriel = document.getElementById('btn-gabriel');
+
+  function marcarBotaoSelecionado(nomeImg) {
+    btnAdauto.classList.remove('selected');
+    btnGabriel.classList.remove('selected');
+    if (nomeImg === 'adauto.png') btnAdauto.classList.add('selected');
+    if (nomeImg === 'gabriel.png') btnGabriel.classList.add('selected');
+  }
+
+  
+  function trocarPersonagem(nomeImagem, btnEl) {
+    // salva seleção no localStorage
+    localStorage.setItem('selectedCharacter', nomeImagem);
+    // atualiza pré-visualização e destaque do botão
+    preview.src = nomeImagem;
+    preview.style.display = 'block';
+    marcarBotaoSelecionado(nomeImagem);
+  }
+
+  // ao carregar a página, restaura seleção se existir
+  window.addEventListener('DOMContentLoaded', () => {
+    const selecionado = localStorage.getItem('selectedCharacter');
+    preview.src = selecionado;
+    preview.style.display = 'block';
+    marcarBotaoSelecionado(selecionado);
+  });
+
+  </script>
+</body>
+</html>
